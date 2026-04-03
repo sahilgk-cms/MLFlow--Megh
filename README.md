@@ -27,6 +27,8 @@ docker-compose up ml-pipeline
 - **Experiments:** http://{ec2-private-ip}:5000/#/experiments
 <img width="1452" height="393" alt="image" src="https://github.com/user-attachments/assets/1c593a8c-5820-4203-bd19-b145dabcfdf7" />
 
+- **Runs:**
+<img width="1797" height="617" alt="image" src="https://github.com/user-attachments/assets/aa66dc1e-85a5-4e8c-9e06-2c07476ca57b" />
 
 ## Future improvements
 - Migrate artifact store to S3 (as artifacts cannot be accessed outside of EC2 instance)
