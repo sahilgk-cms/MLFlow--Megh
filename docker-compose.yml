@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: ml-pipeline
+    volumes:
+      - .:/app   # mount code (optional but useful for dev)
+      - ./mlflow_artifacts:/mlflow/artifacts
+    env_file:
+      - .env
+    depends_on:
+      - mlflow
+    command: >
+      uv run python main.py
+      --data_config config/data/data_v1.yml
+      --database_config config/database/db_v1.yml
+      --feature_config config/features/features_v1.yml
+      --ml_config config/ml/ml_v1.yml
+      --search_space config/search_spaces/search_spaces_v1.yml
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.6.0
+    container_name: mlflow-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow_artifacts:/mlflow/artifacts 
+      - ./mlflow_db:/mlflow
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:///mlflow/mlflow.db
+      --default-artifact-root file:///mlflow/artifacts
+      --host 0.0.0.0
+      --allowed-hosts "*"
+
+volumes:
+  mlflow_data:
+
+
+
+
