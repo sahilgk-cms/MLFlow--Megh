@@ -31,7 +31,7 @@ ssh <user>@<ec2-private-ip>
 - 
 - Run the pipeline thorugh docker compose
 ```
-docker-compose up ml-pipeline
+docker-compose up app
 ```
 
 ## Screenshots
