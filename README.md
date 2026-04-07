@@ -28,10 +28,10 @@ The pipeline is driven by configurable YAML files:
 ssh <user>@<ec2-private-ip>
 ```
 - Ensure MLflow Server is Running on http://<ec2-private-ip>:5000
-- 
+- Go the folder repo.
 - Run the pipeline thorugh docker compose
 ```
-docker-compose up app
+docker-compose up
 ```
 
 ## Screenshots
