@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  megh-pipeline:
+    build: .
+    container_name: megh-pipeline
+    volumes:
+      - .:/megh-pipeline
+    env_file:
+      - .env
+    command: >
+      uv run python main.py
+      --data_config config/data/data_v1.yml
+      --database_config config/database/db_v1.yml
+      --feature_config config/features/features_v1.yml
+      --ml_config config/ml/ml_v1.yml
+      --search_space config/search_spaces/search_spaces_v1.yml
