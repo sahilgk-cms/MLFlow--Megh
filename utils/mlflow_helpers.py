@@ -6,6 +6,37 @@ from pathlib import Path
 from typing import Dict
 import time
 from utils.helpers import safe_tag_value
+import subprocess
+
+
+def get_get_info():
+    def _run_cmd(cmd):
+        return  subprocess.check_output(cmd, stderr=subprocess.DEVNULL).decode("utf-8").strip()
+    
+    try:
+        commit = _run_cmd(["git", "rev-parse", "HEAD"])
+        branch = _run_cmd(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+        status = _run_cmd(["git", "status", "--porcelain"])
+
+        is_dirty = len(status) > 0
+
+        return {
+            "git_commit": commit,
+            "git_branch": branch,
+            "git_dirty": is_dirty
+        }
+    except Exception:
+        return {
+            "git_commit": "unknown",
+            "git_branch": "unknown",
+            "git_dirty": "unknown"
+        }
+
+def log_git_to_mlflow():
+    git_info = get_get_info()
+    for key, value in git_info.items():
+        mlflow.set_tag(key, value)
+
 
 def initiate_client(mlflow_uri: str):
     client = MlflowClient(tracking_uri=mlflow_uri)
