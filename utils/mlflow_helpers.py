@@ -7,6 +7,7 @@ from typing import Dict
 import time
 from utils.helpers import safe_tag_value
 import subprocess
+import os
 
 
 def get_get_info():
@@ -37,6 +38,29 @@ def log_git_to_mlflow():
     for key, value in git_info.items():
         mlflow.set_tag(key, value)
 
+
+def log_dvc_info():
+    try:
+        dvc_stage = os.getenv("DVC_STAGE", "unknown")
+        mlflow.set_tag("dvc_stage", dvc_stage)
+    
+        result = subprocess.run(
+            ["dvc", "status"],
+            capture_output=True,
+            text=True
+        )
+        mlflow.set_tag("dvc_status", result.stdout.strip())
+
+        if os.path.exists("dvc.lock"):
+            with open("dvc.lock", "r") as f:
+                mlflow.log_text(f.read(), "dvc_lock_snapshot.txt")
+        else:
+            mlflow.set_tag("dvc_lock", "not_found")
+
+    except Exception as e:
+        mlflow.set_tag("dvc_logging_error", str(e))
+
+        
 
 def initiate_client(mlflow_uri: str):
     client = MlflowClient(tracking_uri=mlflow_uri)
