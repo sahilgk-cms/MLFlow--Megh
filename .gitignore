@@ -1,1 +1,4 @@
 .env
+logs/
+catboost_info/
+__pycache__/
