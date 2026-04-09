@@ -1,6 +1,6 @@
 import mlflow
 from mlflow.tracking import MlflowClient
-from config.env import MLFLOW_URI
+from config.env import MLFLOW_URI, DVC_STAGE
 import pandas as pd
 from pathlib import Path
 from typing import Dict
@@ -41,8 +41,7 @@ def log_git_to_mlflow():
 
 def log_dvc_info():
     try:
-        dvc_stage = os.getenv("DVC_STAGE", "unknown")
-        mlflow.set_tag("dvc_stage", dvc_stage)
+        mlflow.set_tag("dvc_stage", DVC_STAGE)
     
         result = subprocess.run(
             ["dvc", "status"],
