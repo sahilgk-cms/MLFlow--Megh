@@ -1,0 +1,18 @@
+stages:
+  train_pipeline:
+    cmd: docker compose run --rm megh-pipeline
+
+    deps:
+      - main.py
+      - pipelines/
+      - features/
+      - db/
+      - preprocessing/
+      - training/
+      - optimizer/
+      - utils/
+      - config/
+
+    outs:
+      - train_dataset.parquet
+      - test_dataset.parquet
