@@ -3,7 +3,7 @@ from pipelines.data_builder import build_data
 from db.engine import get_engine
 from datetime import datetime
 from preprocessing.factory import PreprocessorFactory
-from utils.mlflow_helpers import start_mlflow_experiment
+from utils.mlflow_helpers import start_mlflow_experiment, log_git_to_mlflow
 from utils.artifact_logger import log_parquet, log_config
 from utils.mlflow_helpers import register_model_with_data_tags, initiate_client
 from utils.explainability import log_shap_summary
@@ -83,8 +83,7 @@ def main():
     mlflow.set_tracking_uri(MLFLOW_URI)
     client = initiate_client(MLFLOW_URI)
     with mlflow.start_run(run_name = f"{experiment_name}_pipeline_root_{today_date}") as pipeline_root:
-
-        
+        log_git_to_mlflow()
        
         pipeline_root_run_id = pipeline_root.info.run_id
         tags_dict = { 
@@ -171,3 +170,34 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # import mlflow
+
+    # experiment_name = "test_experiment"
+    # experiment = start_mlflow_experiment(mlflow_uri=MLFLOW_URI,
+    #                                      experiment_name=experiment_name,
+                              
+    #                                      )
+
+    # mlflow.set_tracking_uri(MLFLOW_URI)
+    
+    # with mlflow.start_run():
+    #     with open("test_s3.txt", "w") as f:
+    #         f.write("testing S3 from pipeline")
+
+    #     mlflow.log_artifact("test_s3.txt")
+    
+    # artifact_uri = mlflow.get_artifact_uri()
+    # print("Artifact uri: ", artifact_uri)
+
+    # import boto3
+    # bucket = 'com.cg.cx-general'
+    # prefix = 'mlflow/artifacts'
+    # s3 = boto3.client("s3")
+    # response = s3.list_objects_v2(
+    #     Bucket=bucket,
+    #     Prefix=prefix
+    # )
+    # logger.info(f"Checking S3 bucket: {bucket} | Prefix: {prefix}")
+    # logger.info(f"Response: {response}")
+    # for obj in response.get('Contents', []):
+    #     logger.info(obj['Key']) 
