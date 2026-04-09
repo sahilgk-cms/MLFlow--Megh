@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  train_pipeline:
+    cmd: docker compose run megh-pipeline
+    deps:
+    - path: config/
+      hash: md5
+      md5: a9c9cc85ffe5406abc16140117ce911b.dir
+      size: 4191
+      nfiles: 11
+    - path: db/
+      hash: md5
+      md5: 5554f0b5d5bcd0d457a569833722b4e0.dir
+      size: 6787
+      nfiles: 6
+    - path: features/
+      hash: md5
+      md5: 2ff472d0221883b864f8661871ea0e1c.dir
+      size: 38442
+      nfiles: 18
+    - path: main.py
+      hash: md5
+      md5: 994f627b6ab56e94d28bee00d925561c
+      size: 9244
+    - path: optimizer/
+      hash: md5
+      md5: bb92ec99aabab7f7844e945fe8c8f8c4.dir
+      size: 15022
+      nfiles: 12
+    - path: pipelines/
+      hash: md5
+      md5: e47493f3519932b884395262ec5ffe2f.dir
+      size: 26062
+      nfiles: 12
+    - path: preprocessing/
+      hash: md5
+      md5: baef73e564ed5b8cf2949790678c1ba7.dir
+      size: 7335
+      nfiles: 8
+    - path: training/
+      hash: md5
+      md5: d1530818a0edc77b25a259dd346fce8d.dir
+      size: 4772
+      nfiles: 6
+    - path: utils/
+      hash: md5
+      md5: 9d116aa478843ec938d550fbb648458b.dir
+      size: 23674
+      nfiles: 12
+    outs:
+    - path: test_dataset.parquet
+      hash: md5
+      md5: 2e0b2264a4f14ab78715aa437a9b5b34
+      size: 795816
+    - path: train_dataset.parquet
+      hash: md5
+      md5: 12044883bacb4031a9eea083f76b7542
+      size: 7059822
