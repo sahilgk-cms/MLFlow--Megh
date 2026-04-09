@@ -1,4 +1,26 @@
+# Environment
 .env
+
+# Logs
 logs/
+
+# Catboost 
 catboost_info/
+
+# Pycache
 __pycache__/
+
+# Data files
+*.csv
+*.parquet
+*.xlsx
+
+# Images / plots
+*.png
+*.jpg
+*.jpeg
+
+# ML models
+*.pkl
+*.joblib
+*.model
