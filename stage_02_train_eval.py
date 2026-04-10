@@ -44,13 +44,9 @@ def main():
     with open(DATA_ARTIFACT, "rb") as f:
         output = pickle.load(f)
 
-    # ⚠️ run_id is optional now (do NOT fail pipeline if missing)
-    parent_run_id = None
-    run_id_path = RUN_ARTIFACT
-
-    if os.path.exists(run_id_path):
-        with open(run_id_path) as f:
-            parent_run_id = f.read().strip()
+    # run_id is optional now (do NOT fail pipeline if missing)
+    with open(RUN_ARTIFACT, "r") as f:
+        parent_run_id = f.read().strip()
 
     X_train = output["features"]["X_train"]
     y_train = output["features"]["y_train"]
@@ -79,38 +75,23 @@ def main():
                                          experiment_name=experiment_name,
                                          )
     
-    today_date = datetime.now().strftime("%Y/%m/%d")
-    with mlflow.start_run(run_name = f"{experiment_name}_pipeline_root_{today_date}") as root_run:
+    #today_date = datetime.now().strftime("%Y/%m/%d")
+    with mlflow.start_run(run_id=parent_run_id, nested=True, run_name = "train_eval_run") as train_eval_run:
         log_git_to_mlflow()
         log_dvc_info()
 
         tags_dict = { 
-                "preprocessor_name": ML_CONFIG.get("preprocessor_name"),
-                "train_data_hash": output["hash"]["train_data_hash"],
-                "test_data_hash": output["hash"]["test_data_hash"],
-                "train_date_min": output["metadata"]["train_metadata"]["train_date_min"],
-                "train_date_max": output["metadata"]["train_metadata"]["train_date_max"],
-                "test_date_min": output["metadata"]["test_metadata"]["test_date_min"],
-                "test_date_max": output["metadata"]["test_metadata"]["test_date_max"]
+                "preprocessor_name": ML_CONFIG.get("preprocessor_name")
                 }
-        
-        for key, value in FEATURE_CONFIG.items():
-            tags_dict[key] = safe_tag_value(value)
-
-        for key, value in DATA_CONFIG.items():
-            tags_dict[key] = safe_tag_value(value)
-
-        for key, value in DATABASE_CONFIG.items():
-            tags_dict[key] = safe_tag_value(value)
+        mlflow.set_tags("pipeline_stage", "train_eval")
 
         mlflow.set_tags(tags_dict)
-        
 
         log_parquet(df = output["data"]["train_df"], filename=TRAIN_PATH, artifact_path="data")
         log_parquet(df=output["data"]["test_df"], filename=TEST_PATH, artifact_path="data")
 
 
-        pipeline_root_run_id = root_run.info.run_id
+        pipeline_root_run_id = parent_run_id
         # training
 
         search_space = get_search_space(
