@@ -1,0 +1,31 @@
+schema: '2.0'
+stages:
+  data:
+    cmd: "python stage_01_data.py  --data_config config/data.yaml  --database_config
+      config/db.yaml  --feature_config config/features.yaml\n"
+    deps:
+    - path: config/data.yaml
+      hash: md5
+      md5: 43d676013267d8f5c5ff58469895fd26
+      size: 15
+    - path: config/db.yaml
+      hash: md5
+      md5: 80b741ae6b720e0a464b8f202f689bce
+      size: 41
+    - path: config/features.yaml
+      hash: md5
+      md5: 24319a4d041c355aa60ecd7d95238c1d
+      size: 511
+    outs:
+    - path: artifacts/data.pkl
+      hash: md5
+      md5: ca0c2b5cf290810b6acc64b7bd662bca
+      size: 20809890
+    - path: artifacts/features.parquet
+      hash: md5
+      md5: 914525dcbfbe958ab84a16945be88160
+      size: 7605082
+    - path: artifacts/run_id.txt
+      hash: md5
+      md5: 14c258547683792a97cf718915fcdfc9
+      size: 32
