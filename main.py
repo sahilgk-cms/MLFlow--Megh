@@ -14,7 +14,7 @@ from search_space.search_space import get_search_space
 import mlflow
 from config.env import DB_NAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_USER
 from config.env import MLFLOW_URI
-from config.filepaths import VILLAGE_EMBEDDINGS_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, FEATURE_IMPORTANCE_PATH, TRAIN_PATH, TEST_PATH, DATABASE_CONFIG_PATH, FEATURE_CONFIG_PATH, DATA_CONFIG_PATH
+from config.filepaths import VILLAGE_EMBEDDINGS_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, FEATURE_IMPORTANCE_PATH, TRAIN_PATH, TEST_PATH
 from log.logger import get_logger
 from utils.helpers import safe_tag_value, load_yaml_config
 from utils.hardware import detect_gpu
