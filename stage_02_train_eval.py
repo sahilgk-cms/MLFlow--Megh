@@ -75,6 +75,9 @@ def main():
                                          experiment_name=experiment_name,
                                          )
     
+    print("ACTIVE RUN:", mlflow.active_run())
+    print("EXPERIMENT:", mlflow.get_experiment_by_name(experiment_name))
+    
     #today_date = datetime.now().strftime("%Y/%m/%d")
     with mlflow.start_run(run_id=parent_run_id, nested=True, run_name = "train_eval_run") as train_eval_run:
         log_git_to_mlflow()
@@ -90,7 +93,9 @@ def main():
         log_parquet(df = output["data"]["train_df"], filename=TRAIN_PATH, artifact_path="data")
         log_parquet(df=output["data"]["test_df"], filename=TEST_PATH, artifact_path="data")
 
-
+        mlflow.log_artifact(args.ml_config, artifact_path="config")
+        mlflow.log_artifact(args.search_space, artifact_path="config")
+        
         pipeline_root_run_id = parent_run_id
         # training
 
