@@ -27,8 +27,6 @@ def run_training_pipeline(
 
     optimization_metric = MetricFactory.get_optimize_metric(model_name)
 
-    
-
     optimizer_cls = OptimizerFactory.create(optimizer_type)
 
     model_cls, model_kwargs = ModelFactory.get_model(
@@ -74,8 +72,8 @@ def run_training_pipeline(
         best_score = study["best_score"]
         best_params = study["best_params"]
 
-        mlflow.log_metric(f"best_cv_{optimization_metric.name}", best_score)
-        mlflow.log_params(best_params)
+        mlflow.log_metric(f"best_cv_{optimization_metric.name}", float(best_score))
+        mlflow.log_params({k: str(v) for k, v in best_params.items()})
 
         # Train final model on full training set
         final_model = model_cls.from_params(best_params, **model_kwargs)
