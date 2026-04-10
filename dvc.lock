@@ -29,3 +29,57 @@ stages:
       hash: md5
       md5: 14c258547683792a97cf718915fcdfc9
       size: 32
+  train_eval:
+    cmd: "python stage_02_train_eval.py  --ml_config config/ml.yaml  --search_space
+      config/search_spaces.yaml  --data_config config/data.yaml  --database_config
+      config/db.yaml  --feature_config config/features.yaml\n"
+    deps:
+    - path: artifacts/data.pkl
+      hash: md5
+      md5: ca0c2b5cf290810b6acc64b7bd662bca
+      size: 20809890
+    - path: artifacts/run_id.txt
+      hash: md5
+      md5: 14c258547683792a97cf718915fcdfc9
+      size: 32
+    - path: config/data.yaml
+      hash: md5
+      md5: 43d676013267d8f5c5ff58469895fd26
+      size: 15
+    - path: config/db.yaml
+      hash: md5
+      md5: 80b741ae6b720e0a464b8f202f689bce
+      size: 41
+    - path: config/features.yaml
+      hash: md5
+      md5: 24319a4d041c355aa60ecd7d95238c1d
+      size: 511
+    - path: config/ml.yaml
+      hash: md5
+      md5: 24b6be39205748599bfc4f7e1f5c9b77
+      size: 206
+    - path: config/search_spaces.yaml
+      hash: md5
+      md5: 2444f3e6794609cd386217f902aef67a
+      size: 640
+    outs:
+    - path: artifacts/predictions.parquet
+      hash: md5
+      md5: 97f068b55079ee50fd4f1a0b4d81d978
+      size: 11483
+    - path: artifacts/shap_summary.png
+      hash: md5
+      md5: 20721b03360af4a071754a5f5397b649
+      size: 134784
+    - path: artifacts/shap_values.parquet
+      hash: md5
+      md5: e2e14add24db3c63b23233b50efe287d
+      size: 894995
+    - path: artifacts/test_dataset.parquet
+      hash: md5
+      md5: 2e0b2264a4f14ab78715aa437a9b5b34
+      size: 795816
+    - path: artifacts/train_dataset.parquet
+      hash: md5
+      md5: 12044883bacb4031a9eea083f76b7542
+      size: 7059822
