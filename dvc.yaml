@@ -19,9 +19,9 @@ stages:
       python stage_02_train_eval.py 
       --ml_config config/ml.yaml 
       --search_space config/search.yaml 
-      --data_config configs/data.yaml 
-      --database_config configs/db.yaml 
-      --feature_config configs/features.yaml
+      --data_config config/data.yaml 
+      --database_config config/db.yaml 
+      --feature_config config/features.yaml
     deps:
       - artifacts/data.pkl
       - artifacts/run_id.txt
