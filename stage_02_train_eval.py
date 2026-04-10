@@ -9,14 +9,14 @@ from pipelines.train_pipeline import run_training_pipeline
 from pipelines.evaluation_pipeline import run_evaluation_pipeline
 from search_space.search_space import get_search_space
 
-from utils.mlflow_helpers import register_model_with_data_tags, initiate_client, log_git_to_mlflow, log_dvc_info
+from utils.mlflow_helpers import start_mlflow_experiment, register_model_with_data_tags, initiate_client, log_git_to_mlflow, log_dvc_info
 from utils.explainability import log_shap_summary
 from utils.artifact_logger import log_parquet
 from utils.helpers import load_yaml_config
 from utils.hardware import detect_gpu
 
 from config.env import MLFLOW_URI
-from config.filepaths import DATA_ARTIFACT, FEATURE_IMPORTANCE_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, RUN_ARTIFACT
+from config.filepaths import DATA_ARTIFACT, TRAIN_PATH, TEST_PATH, FEATURE_IMPORTANCE_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, RUN_ARTIFACT
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -71,10 +71,18 @@ def main():
     disease = DATABASE_CONFIG.get('disease').replace(" ", "_")
 
     experiment_name = f"{state}_{disease}"
+    experiment = start_mlflow_experiment(mlflow_uri=MLFLOW_URI,
+                                         experiment_name=experiment_name,
+                                         )
+    
     today_date = datetime.now().strftime("%Y/%m/%d")
     with mlflow.start_run(run_name = f"{experiment_name}_pipeline_root_{today_date}") as root_run:
         log_git_to_mlflow()
         log_dvc_info()
+
+        log_parquet(df = output["data"]["train_df"], filename=TRAIN_PATH, artifact_path="data")
+        log_parquet(df=output["data"]["test_df"], filename=TEST_PATH, artifact_path="data")
+
 
         pipeline_root_run_id = root_run.info.run_id
         # training
