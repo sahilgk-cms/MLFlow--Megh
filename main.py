@@ -14,7 +14,7 @@ from search_space.search_space import get_search_space
 import mlflow
 from config.env import DB_NAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_USER
 from config.env import MLFLOW_URI
-from config.filepaths import VILLAGE_EMBEDDINGS_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, FEATURE_IMPORTANCE_PATH, TRAIN_PATH, TEST_PATH
+from config.filepaths import FEATURES_ARTIFACT, VILLAGE_EMBEDDINGS_PATH, PREDICTIONS_PATH, SHAP_SUMMARY_PATH, SHAP_VALUES_PATH, FEATURE_IMPORTANCE_PATH, TRAIN_PATH, TEST_PATH
 from log.logger import get_logger
 from utils.helpers import safe_tag_value, load_yaml_config
 from utils.hardware import detect_gpu
@@ -50,6 +50,7 @@ def main():
     logger.info("Building features..")
     statewise_final = build_features(engine=engine, database_config=DATABASE_CONFIG,
                                     feature_config=FEATURE_CONFIG, village_embeddings_path=VILLAGE_EMBEDDINGS_PATH)
+    statewise_final.to_parquet(FEATURES_ARTIFACT)
     
     logger.info("Building data...")
     output = build_data(df=statewise_final, data_config=DATA_CONFIG)
