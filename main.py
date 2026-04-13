@@ -84,6 +84,8 @@ def main():
 
     mlflow.set_tracking_uri(MLFLOW_URI)
     client = initiate_client(MLFLOW_URI)
+
+    mlflow.end_run()
     with mlflow.start_run(run_name = f"{experiment_name}_pipeline_root_{today_date}") as pipeline_root:
         log_git_to_mlflow()
         log_dvc_info()
