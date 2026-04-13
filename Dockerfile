@@ -17,10 +17,9 @@ RUN pip install --no-cache-dir uv
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies
-RUN uv sync --frozen
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen
 
-# Add venv to PATH
-ENV PATH="/megh-pipeline/.venv/bin:$PATH"
 
 # Copy rest of code
 COPY . .

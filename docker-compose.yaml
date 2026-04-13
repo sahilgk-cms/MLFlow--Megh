@@ -2,12 +2,15 @@ version: "3.9"
 
 services:
   megh-pipeline:
-    build: .
+    build: 
+      context: .
+      cache_from:
+         - megh-pipeline:latest
     container_name: megh-pipeline
+    user: ubuntu
     volumes:
       - .:/megh-pipeline
     working_dir: /megh-pipeline
     env_file:
       - .env
-    command: >
-      bash -c "uv  run dvc repro"
+    command: uv run dvc repro
