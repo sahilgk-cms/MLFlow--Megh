@@ -50,10 +50,13 @@ def main():
     logger.info("Building features..")
     statewise_final = build_features(engine=engine, database_config=DATABASE_CONFIG,
                                     feature_config=FEATURE_CONFIG, village_embeddings_path=VILLAGE_EMBEDDINGS_PATH)
-    statewise_final.to_parquet(FEATURES_ARTIFACT)
-    
+    log_parquet(df=statewise_final, filename=FEATURES_ARTIFACT,
+                         artifact_path="features")
+
     logger.info("Building data...")
     output = build_data(df=statewise_final, data_config=DATA_CONFIG)
+    
+
     X_train = output["features"]["X_train"]
     y_train = output["features"]["y_train"]
     X_test = output["features"]["X_test"]
