@@ -3,7 +3,7 @@ from pipelines.data_builder import build_data
 from db.engine import get_engine
 from datetime import datetime
 from preprocessing.factory import PreprocessorFactory
-from utils.mlflow_helpers import start_mlflow_experiment, log_git_to_mlflow, log_dvc_info
+from utils.mlflow_helpers import start_mlflow_experiment, log_git_to_mlflow, log_dvc_info, safe_end_run
 from utils.artifact_logger import log_parquet, log_config
 from utils.mlflow_helpers import register_model_with_data_tags, initiate_client
 from utils.explainability import log_shap_summary
@@ -85,7 +85,7 @@ def main():
     mlflow.set_tracking_uri(MLFLOW_URI)
     client = initiate_client(MLFLOW_URI)
 
-    mlflow.end_run()
+    safe_end_run()
     with mlflow.start_run(run_name = f"{experiment_name}_pipeline_root_{today_date}") as pipeline_root:
         log_git_to_mlflow()
         log_dvc_info()
