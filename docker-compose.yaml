@@ -7,7 +7,6 @@ services:
       cache_from:
          - megh-pipeline:latest
     container_name: megh-pipeline
-    user: ubuntu
     volumes:
       - .:/megh-pipeline
     working_dir: /megh-pipeline
