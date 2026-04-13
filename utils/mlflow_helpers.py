@@ -41,11 +41,6 @@ def log_git_to_mlflow():
 
 def log_dvc_info():
     try:
-        mlflow.set_tag("dvc_stage", DVC_STAGE)
-    
-
-        mlflow.set_tag("dvc_status", )
-
         if os.path.exists("dvc.lock"):
             with open("dvc.lock", "r") as f:
                 mlflow.log_text(f.read(), "dvc_lock_snapshot.txt")
