@@ -24,7 +24,6 @@ stages:
 
     outs:
       - artifacts/features.parquet
-      - artifacts/data.pkl
       - artifacts/run_id.txt
       - artifacts/train_dataset.parquet
       - artifacts/test_dataset.parquet
