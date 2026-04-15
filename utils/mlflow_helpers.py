@@ -10,7 +10,7 @@ import subprocess
 import os
 
 
-def get_get_info():
+def get_git_info():
     def _run_cmd(cmd):
         return  subprocess.check_output(cmd, stderr=subprocess.DEVNULL).decode("utf-8").strip()
     
@@ -34,7 +34,7 @@ def get_get_info():
         }
 
 def log_git_to_mlflow():
-    git_info = get_get_info()
+    git_info = get_git_info()
     for key, value in git_info.items():
         mlflow.set_tag(key, value)
 
