@@ -46,6 +46,6 @@ export DVC_ROOT=$(pwd)
 
 # Step 4: Run pipeline
 echo " Running DVC pipeline..."
-.venv/bin/uv run dvc repro
+uv run dvc repro
 
 echo "Pipeline completed successfully!"
