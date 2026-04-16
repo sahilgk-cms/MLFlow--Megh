@@ -1,6 +1,8 @@
 import os
+from pathlib import Path
 
-CURRENT_DIR = os.getcwd()
+#CURRENT_DIR = os.getcwd()
+CURRENT_DIR = Path(__file__).resolve().parents[1]
 
 LOGS_DIRECTORY = os.path.join(CURRENT_DIR, "logs")
 
@@ -8,7 +10,7 @@ SEARCH_SPACE_PATH = os.path.join(CURRENT_DIR, "config", "search_spaces.yml")
 VILLAGE_EMBEDDINGS_PATH = os.path.join(CURRENT_DIR, "embeddings", "emb_village.csv")
 
 
-
+print(CURRENT_DIR)
 
 
 ARTIFACTS_FOLDER = os.path.join(CURRENT_DIR, "artifacts")
