@@ -35,7 +35,10 @@ fi
 # Step 2: Load environment variables
 echo "🔹 Loading environment variables..."
 if [ -f ".env" ]; then
-    export $(grep -v '^#' .env | xargs)
+    echo "Loading environment variables..."
+    set -a
+    source .env
+    set +a
 fi
 
 # Step 3: Set DVC root
