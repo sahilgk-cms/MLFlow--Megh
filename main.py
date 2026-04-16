@@ -83,11 +83,11 @@ def main():
                                          )
     today_date = datetime.now().strftime("%Y/%m/%d")
 
-    print("TRACKING URI before setting:", mlflow.get_tracking_uri())
-    print("ENV URI:", os.getenv("MLFLOW_URI"))
+    logger.info("TRACKING URI before setting:", mlflow.get_tracking_uri())
+    logger.info("ENV URI:", os.getenv("MLFLOW_URI"))
 
     mlflow.set_tracking_uri(MLFLOW_URI)
-    print("TRACKING URI after setting:", mlflow.get_tracking_uri())
+    logger.info("TRACKING URI after setting:", mlflow.get_tracking_uri())
     client = initiate_client(MLFLOW_URI)
 
     safe_end_run()
