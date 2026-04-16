@@ -13,11 +13,11 @@ if [ ! -d ".venv" ]; then
     source .venv/bin/activate
 
     echo "Installing uv..."
-    pip install --upgrade pip
-    pip install uv
+    .venv/bin/python -m pip install --upgrade pip
+    .venv/bin/python -m pip install uv
 
     echo "Installing dependencies using uv..."
-    uv sync
+    .venv/bin/uv sync
 
 else
     echo ".venv already exists"
@@ -28,7 +28,7 @@ else
     # Optional: ensure uv exists
     if ! command -v uv &> /dev/null; then
         echo "uv not found inside venv. Installing..."
-        pip install uv
+        .venv/bin/python -m pip install uv
     fi
 fi
 
@@ -46,6 +46,6 @@ export DVC_ROOT=$(pwd)
 
 # Step 4: Run pipeline
 echo " Running DVC pipeline..."
-python -m uv run dvc repro
+.venv/bin/uv run dvc repro
 
 echo "Pipeline completed successfully!"
