@@ -1,0 +1,76 @@
+schema: '2.0'
+stages:
+  pipeline:
+    cmd: "python main.py --data_config config/data.yaml --database_config config/db.yaml
+      --feature_config config/features.yaml --ml_config config/ml.yaml --search_space
+      config/search_spaces.yaml\n"
+    deps:
+    - path: config/data.yaml
+      hash: md5
+      md5: 43d676013267d8f5c5ff58469895fd26
+      size: 15
+    - path: config/db.yaml
+      hash: md5
+      md5: 80b741ae6b720e0a464b8f202f689bce
+      size: 41
+    - path: config/features.yaml
+      hash: md5
+      md5: 24319a4d041c355aa60ecd7d95238c1d
+      size: 511
+    - path: config/ml.yaml
+      hash: md5
+      md5: 61e04a1d437f06caeaa1da64b1d18765
+      size: 195
+    - path: config/search_spaces.yaml
+      hash: md5
+      md5: 2444f3e6794609cd386217f902aef67a
+      size: 640
+    - path: main.py
+      hash: md5
+      md5: 289276d4e581effeb63f24aa39cb7aa8
+      size: 9307
+    - path: pipelines/data_builder.py
+      hash: md5
+      md5: e58189bcae2b9292e3f6e75198456c39
+      size: 1568
+    - path: pipelines/evaluation_pipeline.py
+      hash: md5
+      md5: c510fae9e46d9144231a3d37378d899a
+      size: 1803
+    - path: pipelines/features_builder.py
+      hash: md5
+      md5: 6b1f9e9282db5eb43d06fa86c9cc089b
+      size: 5072
+    - path: pipelines/prediction_builder.py
+      hash: md5
+      md5: 5798755a56874acd1f6cdba8fe83a8ac
+      size: 878
+    - path: pipelines/train_pipeline.py
+      hash: md5
+      md5: 8955278f1b131b5f02bc248067c4eefd
+      size: 2698
+    outs:
+    - path: artifacts/features.parquet
+      hash: md5
+      md5: 985f74296e7959f7a1bd1cd81c2f6f87
+      size: 8929464
+    - path: artifacts/predictions.parquet
+      hash: md5
+      md5: f5388fac12531fcc5b6c3eaaac5a1a33
+      size: 12570
+    - path: artifacts/shap_summary.png
+      hash: md5
+      md5: 1dec09f9e651d01ac459af957cd4759b
+      size: 127764
+    - path: artifacts/shap_values.parquet
+      hash: md5
+      md5: 3914dea69993d59275c85f9be3cae7c7
+      size: 1021483
+    - path: artifacts/test_dataset.parquet
+      hash: md5
+      md5: 8044211073b817591e032e7f5ff656d8
+      size: 909632
+    - path: artifacts/train_dataset.parquet
+      hash: md5
+      md5: 512310b20a84979fa2f9b6bc06337011
+      size: 8351034
