@@ -1,6 +1,6 @@
 preprocessor_name: tabular_v1
 
-n_trials: 10
+n_trials: 30
 n_splits: 5
 
 model_name: CatBoostRegressor
