@@ -1,6 +1,6 @@
 preprocessor_name: tabular_v1
 
-n_trials: 5
+n_trials: 10
 n_splits: 5
 
 model_name: CatBoostRegressor
@@ -10,3 +10,5 @@ evaluation_run_type: evaluation
 
 cv_type: TimeSeriesSplit
 optimizer_type: optuna
+
+high_risk_limit: 3
