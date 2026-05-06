@@ -14,6 +14,7 @@ print(CURRENT_DIR)
 
 
 ARTIFACTS_FOLDER = os.path.join(CURRENT_DIR, "artifacts")
+os.makedirs(ARTIFACTS_FOLDER, exist_ok=True)
 FEATURES_ARTIFACT = os.path.join(ARTIFACTS_FOLDER, "features.parquet")
 DATA_ARTIFACT = os.path.join(ARTIFACTS_FOLDER, "data.pkl")
 RUN_ARTIFACT = os.path.join(ARTIFACTS_FOLDER, "run_id.txt")
