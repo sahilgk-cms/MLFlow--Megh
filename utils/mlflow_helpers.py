@@ -174,6 +174,14 @@ def register_model_with_data_tags(client,
         value=high_risk_limit
     )
 
+    client.set_model_version_tag(
+        name= registered_model_name,
+        version=mv.version,
+        key="model_name",
+        value=model_name
+    )
+
+
 
     for metric_name, value in eval_metric_results.items():
         if metric_name in ["precision", "recall"]:
